@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Littlebox - file upload</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="littlebox_style.css">
+        <link rel="icon" href="icon.svg">
+        <meta name="author" content="@Cactric">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div class="littlebox-div uploaded-div">
+            <div>
+                <img class="icon" src="icon.svg"><h1>Littlebox - file upload</h1>
+            </div>
+            <p class="error">Something went wrong!</p>
+            <p class="error">The following info might be helpful to someone</p>
+            <p class="error"><pre>{{ .Error_description }}</pre></p>
+            <br>
+            <a href="/index.php">Back to main page</a>
+        </div>
+    </body>
+</html>

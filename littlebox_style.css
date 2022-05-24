@@ -1,0 +1,60 @@
+body {
+    font-family: sans-serif;
+    color: #001010;
+    background-color: #ffffff;
+}
+
+.small-note {
+    font-size: 0.8em;
+}
+
+.littlebox-div {
+    border: solid;
+    border-color: #001010;
+    border-radius: 8px;
+    border-width: 1px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-bottom: 0.5em;
+    background-color: #efffff;
+}
+
+.form-div {
+    padding: 0.5em;
+}
+
+.littlebox-form {
+    background-color: #9eefff;
+    color: black;
+    border: solid;
+    border-color: #006060;
+    border-radius: 8px;
+    padding: 0.5em;
+    border-width: 1px;
+}
+
+.file-selector {
+    border: solid;
+    border-color: #006060;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 0.5em;
+    margin-left: 1em;
+}
+
+.error {
+    color: #780602;
+}
+
+.success {
+    color: #198343;
+}
+
+.uploaded-div {
+    background-color: #fbf5ff;
+    padding: 0.5em;
+}
+
+.icon {
+    float: left;
+}

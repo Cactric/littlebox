@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Littlebox</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="littlebox_style.css">
+        <link rel="icon" href="icon.svg">
+        <meta name="author" content="@Cactric">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="littlebox-div intro-div">
+            <div>
+                <img class="icon" src="icon.svg"><h1>Littlebox</h1>
+            </div>
+            <p>Littlebox aims to be a simple web app where you can upload a file, even from rather old browsers</p>
+            <p class="small-note">Note: uploads from here will only be accessible from the server, not from the web</p>
+        </div>
+        <div class="littlebox-div form-div">
+            <form method="post" action="upload" enctype="multipart/form-data">
+                <label for="FileToUpload" class="file-label">Upload a file:
+                <input type="file" name="FileToUpload" id="FileToUpload" class="littlebox-form file-selector">
+                <br>
+                <input type="submit" value="Upload" class="littlebox-form file-upload">
+            </form>
+        </div>
+    </body>
+</html>
