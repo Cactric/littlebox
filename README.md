@@ -5,3 +5,5 @@ Littlebox is a simple Go web app where you can upload a file one at a time and h
 ![Preview of the homepage](preview.png)
 
 (this is my first time writing anything in Go, hence the simplicity)
+
+Compile with: `go build ./main.go`
