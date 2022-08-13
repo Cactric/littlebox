@@ -14,6 +14,7 @@ import (
 )
 
 var globalUploadDir string
+var globalResourcesDir string
 
 func staticFile(w http.ResponseWriter, r *http.Request) {
     filename := ""
@@ -34,7 +35,7 @@ func staticFile(w http.ResponseWriter, r *http.Request) {
             mimeType = "text/html"
     }
     if mimeType == "text/html" {
-        t, err := template.ParseFiles(filename)
+        t, err := template.ParseFiles(globalResourcesDir + filename)
         if err != nil {
             log.Fatal(err)
         }
@@ -47,7 +48,7 @@ func staticFile(w http.ResponseWriter, r *http.Request) {
     } else {
         w.Header().Set("Content-Type", mimeType)
         w.WriteHeader(http.StatusOK)
-        content, err := ioutil.ReadFile(filename)
+        content, err := ioutil.ReadFile(globalResourcesDir + filename)
         if err != nil {
             log.Fatal(err)
         }
@@ -70,7 +71,7 @@ func recvFile(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Print(err)
         w.WriteHeader(500)
-        t, t_err := template.ParseFiles("errorpages/500.html")
+        t, t_err := template.ParseFiles(globalResourcesDir + "errorpages/500.html")
         if t_err != nil {
             log.Fatal(t_err)
         }
@@ -92,16 +93,28 @@ func recvFile(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     var port int
+    resourcesDir := "./"
     // globalUploadDir is used
+    // globalResourcesDir is used
     flag.IntVar(&port, "p", 8000, "Specify port to listen on, default 8000")
     flag.StringVar(&globalUploadDir, "d", "./uploads", "Specify folder to put uploaded files, default is ./uploads")
+    flag.StringVar(&resourcesDir, "r", "./", "Specify directory with Littlebox’s resources (HTML files, etc.) Default is the current directory")
     
     flag.Parse()
+    
+    // Going to put resourcesDir in globalResourcesDir
+    // If the last character of the resourcesDir is not a /, add one to it before putting it in globalResourcesDir
+    if !(resourcesDir[len(resourcesDir) - 1:] == "/") {
+        globalResourcesDir = resourcesDir + "/"
+    } else {
+        globalResourcesDir = resourcesDir
+    }
     
     http.HandleFunc("/", staticFile)
     http.HandleFunc("/upload", recvFile)
     portString := strconv.Itoa(port)
     fmt.Println("About to serve Littlebox on port " + portString)
     fmt.Println("Uploads will go into the following directory: " + globalUploadDir)
+    fmt.Println("Resources are being loaded from " + globalResourcesDir)
     log.Fatal(http.ListenAndServe(":" + portString, nil))
 }
