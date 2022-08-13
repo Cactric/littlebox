@@ -1,0 +1,15 @@
+# Example systemd service file
+# This expects the binary to be in /usr/local/bin and the resources to be in /usr/local/share/littlebox
+# It also expects to be run as a user named littlebox and put the uploaded files in /srv/littlebox
+
+[Unit]
+Description=Littlebox
+After=network.target
+
+[Service]
+Type=simple
+User=littlebox
+ExecStart=/usr/local/bin/littlebox -d "/srv/littlebox" -r "/usr/local/share/littlebox"
+
+[Install]
+WantedBy=multi-user.target
