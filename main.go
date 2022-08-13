@@ -10,7 +10,10 @@ import (
     "io/ioutil"
     "html/template"
     "time"
+    "flag"
 )
+
+var globalUploadDir string
 
 func staticFile(w http.ResponseWriter, r *http.Request) {
     filename := ""
@@ -61,7 +64,7 @@ func recvFile(w http.ResponseWriter, r *http.Request) {
         log.Fatal(err)
     }
     fmt.Println("Receiving file's size: " + strconv.Itoa(int(receivingFileHeader.Size)))
-    outputFolder := "uploads"
+    outputFolder := globalUploadDir
     filename := strconv.Itoa(int(time.Now().UnixNano())) + "_" + receivingFileHeader.Filename
     file, err := os.Create(outputFolder + "/" + filename)
     if err != nil {
@@ -88,9 +91,17 @@ func recvFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+    var port int
+    // globalUploadDir is used
+    flag.IntVar(&port, "p", 8000, "Specify port to listen on, default 8000")
+    flag.StringVar(&globalUploadDir, "d", "./uploads", "Specify folder to put uploaded files, default is ./uploads")
+    
+    flag.Parse()
+    
     http.HandleFunc("/", staticFile)
     http.HandleFunc("/upload", recvFile)
-    portString := strconv.Itoa(8000)
+    portString := strconv.Itoa(port)
     fmt.Println("About to serve Littlebox on port " + portString)
+    fmt.Println("Uploads will go into the following directory: " + globalUploadDir)
     log.Fatal(http.ListenAndServe(":" + portString, nil))
 }
